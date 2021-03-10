@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from './shared/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'CompanyEmployees.Client.Oidc';
+  title = 'CompanyEmployees.Client';
+  constructor(private _authService: AuthenticationService){}
+  ngOnInit(): void {
+    if(this._authService.isUserAuthenticated())
+      this._authService.sendAuthStateChangeNotification(true);
+  }
 }
